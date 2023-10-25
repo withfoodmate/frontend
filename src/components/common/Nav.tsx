@@ -202,7 +202,7 @@ const Nav = () => {
     {
       children: <SubMenuTitle>마이페이지</SubMenuTitle>,
       onClick: () => {
-        navigate(`/mypage/profile`);
+        navigate(`/mypage/modify-profile`);
       },
     },
     {
@@ -213,6 +213,7 @@ const Nav = () => {
         sessionStorage.removeItem(NICKNAME);
         setIsSignedIn(false);
         alert('로그아웃 되었습니다.');
+        navigate('/')
       },
     },
   ];
