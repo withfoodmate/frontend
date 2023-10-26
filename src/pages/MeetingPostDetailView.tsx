@@ -47,32 +47,7 @@ export const MeetingPostDetailView = () => {
   const joinedMeeting = () => {
     alert('모임에 참여했어요!');
   };
-  const joinedChat = () => {
-    if (isSignedIn === false) {
-      alert('로그인 후 이용해 주세요');
-      return;
-    }
-    const auth = `Bearer ${sessionStorage.getItem('accessToken')}`;
-
-    const client = new Client({
-      brokerURL: `${import.meta.env.VITE_WS_URL}/chat`,
-      connectHeaders: { Authorization: auth },
-      onConnect: () => {
-        if (client === undefined) return;
-        client.subscribe(`/topic/chatroom/${postData.chatRoomId}`, () => {}, { Authorization: auth });
-        alert('채팅방 목록을 확인해 주세요!');
-      },
-      onStompError: (receipt: IFrame) => {
-        if (receipt.headers.message.includes('해당 요청에 권한이 없습니다.')) {
-          client.deactivate();
-          alert('모임 참여 여부 또는 참여 수락 여부를 확인해 주세요!');
-        }
-      },
-    });
-
-    client.activate();
-  };
-
+  
   const handleAttend = async (event: string, question: string) => {
     if (event === '모임') {
       try {
@@ -85,7 +60,29 @@ export const MeetingPostDetailView = () => {
         alert(axiosError.response?.data);
       }
     } else if (event === '대화') {
-      setAlertModalContent((prev) => ({ ...prev, func: joinedChat }));
+      if (isSignedIn === false) {
+        alert('로그인 후 이용해 주세요');
+        return;
+      }
+      const auth = `Bearer ${sessionStorage.getItem('accessToken')}`;
+  
+      const client = new Client({
+        brokerURL: `${import.meta.env.VITE_WS_URL}/chat`,
+        connectHeaders: { Authorization: auth },
+        onConnect: () => {
+          if (client === undefined) return;
+          client.subscribe(`/topic/chatroom/${postData.chatRoomId}`, () => {}, { Authorization: auth });
+          alert('채팅방 목록을 확인해 주세요!');
+        },
+        onStompError: (receipt: IFrame) => {
+          if (receipt.headers.message.includes('해당 요청에 권한이 없습니다.')) {
+            client.deactivate();
+            alert('모임 참여 여부 또는 참여 수락 여부를 확인해 주세요!');
+          }
+        },
+      });
+  
+      client.activate();
     }
   };
 
