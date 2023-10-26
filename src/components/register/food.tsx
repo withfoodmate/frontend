@@ -55,5 +55,10 @@ const MenuLabelsContainer = styled.div`
     border-radius: 16px;
     cursor: pointer;
     justify-content: center;
+
+    @media only screen and (max-width: 768px) {
+      padding: 4px;
+      width: 100px;
+    }
   }
 `;
