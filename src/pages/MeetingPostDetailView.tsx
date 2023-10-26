@@ -174,19 +174,21 @@ export const MeetingPostDetailView = () => {
             <KakaoMap geoCode={geoCode} />
           </MapContainer>
 
-          <div className="basic-buttons-wrap">
-            <BasicButton $fontSize="12px" onClick={() => handleAttend('모임', '모임에 참여할까요?')}>
-              모임 참여
-            </BasicButton>
-            <BasicButton
-              $fontSize="12px"
-              onClick={() => handleAttend('대화', '대화에 참여할까요?')}
-              $backgdColor="#c0c0c0"
-              $hoverBackgdColor="#b6b6b6"
-            >
-              대화 참여
-            </BasicButton>
-          </div>
+          {signedInUserNickname !== postData.nickname && (
+            <div className="basic-buttons-wrap">
+              <BasicButton $fontSize="12px" onClick={() => handleAttend('모임', '모임에 참여할까요?')}>
+                모임 참여
+              </BasicButton>
+              <BasicButton
+                $fontSize="12px"
+                onClick={() => handleAttend('대화', '대화에 참여할까요?')}
+                $backgdColor="#c0c0c0"
+                $hoverBackgdColor="#b6b6b6"
+              >
+                대화 참여
+              </BasicButton>
+            </div>
+          )}
 
           <RightAlign>
             <div className="personnel">
