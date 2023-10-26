@@ -106,16 +106,28 @@ const ProfileBox = styled.div`
   width: 640px;
   margin: 0 auto;
 
+  @media only screen and (max-width: 768px) {
+    width: 410px;
+  }
+
   h3 {
     font-size: 24px;
     color: #212121;
     text-align: center;
     margin-bottom: 50px;
+
+    @media only screen and (max-width: 768px) {
+      margin-bottom: 30px;
+    }
   }
 
   hr {
     width: 640px;
     border: 1px solid #f1f1f1;
+
+    @media only screen and (max-width: 768px) {
+      width: 410px;
+    }
   }
 `;
 
@@ -132,6 +144,14 @@ const ProfileInBox = styled.div`
     color: #212121;
     font-weight: 600;
     line-height: 48px;
+
+    @media only screen and (max-width: 768px) {
+      width: 100px;
+      min-width: 100px;
+      max-width: 100px;
+      line-height: 32px;
+      font-size: 13px;
+    }
 
     span {
       font-size: 12px;
