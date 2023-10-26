@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios';
 import { ErrorResponse } from 'react-router-dom';
 import { UserInfoType } from '../types/userInfoType';
 import { ACCESS_TOKEN, AUTHORIZATION } from '../constants/auth';
+import { getRefreshTokenCookie } from '../utils/getRefreshTokenCookie';
 
 // 로그인
 export const onSignIn = async (email: string, password: string) => {
@@ -15,7 +16,34 @@ export const onSignIn = async (email: string, password: string) => {
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>;
     if (axiosError.response) {
-      alert(axiosError.response.data);
+      if (axiosError.response.status === 401) {
+        try {
+          const refreshResult = await axios.post(`/api/refresh`, {
+            'Authorization-Refresh': `Bearer ${getRefreshTokenCookie()}`,
+          });
+
+          const newAccessToken = refreshResult.data.accessToken;
+
+          const newResult = await axios.post(
+            `/api/member/signin`,
+            {
+              email,
+              password,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${newAccessToken}`,
+              },
+            },
+          );
+
+          return newResult.data;
+        } catch (refreshError) {
+          console.error('리프레시 토큰 오류:', refreshError);
+        }
+      } else {
+        alert(axiosError.response.data);
+      }
     } else {
       console.error('서버 응답 없음');
     }
