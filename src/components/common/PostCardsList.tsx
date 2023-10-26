@@ -11,5 +11,8 @@ export const PostCardsList = ({ groupsData }: { groupsData: AllPostCardType[] })
 };
 
 const CardsContainer = styled.div`
-  width: fit-content;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
 `;
