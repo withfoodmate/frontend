@@ -74,6 +74,14 @@ const SideMenuContainer = styled.aside`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @media only screen and (max-width: 992px) {
+      padding: 30px;
+    }
+
+    @media only screen and (max-width: 768px) {
+      padding: 25px;
+    }
   }
 
   .foodmate {
@@ -85,6 +93,14 @@ const SideMenuContainer = styled.aside`
     padding: 16px 38px;
     border: 1px solid #c0c0c0;
     border-top: 0;
+
+    @media only screen and (max-width: 992px) {
+      padding: 12px 15px;
+    }
+
+    @media only screen and (max-width: 768px) {
+      padding: 10px;
+    }
   }
 
   & > div:last-child {
