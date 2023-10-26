@@ -53,7 +53,9 @@ export const Password = () => {
         <PasswordWrap>
           <SideMenu sideMenuList={MYPAGE_CATEGORY} navMenuIdx={3} />
           <PasswordBox>
-            <h3>비밀번호 변경</h3>
+            <h3>
+              <span>#</span> 비밀번호 변경
+            </h3>
             <hr></hr>
             <PasswordPaddig>
               <PasswordInBox>
@@ -127,7 +129,7 @@ export const Password = () => {
             </PasswordPaddig>
             <hr></hr>
             <LoginButton $fontSize="16px" onClick={handleSubmit}>
-              비밀번호 변경
+              변경하기
             </LoginButton>
           </PasswordBox>
         </PasswordWrap>
@@ -138,7 +140,7 @@ export const Password = () => {
 
 const PasswordWrap = styled.div`
   display: flex;
-  margin: 120px 0 259px 0;
+  margin: 60px 0;
 `;
 
 const PasswordBox = styled.div`
@@ -150,6 +152,10 @@ const PasswordBox = styled.div`
     color: #212121;
     text-align: center;
     margin-bottom: 50px;
+
+    span {
+      color: ${(props) => props.theme.color.ORANGE};
+    }
   }
 
   hr {

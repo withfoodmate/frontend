@@ -57,7 +57,9 @@ export const Quit = () => {
         <QuitWrap>
           <SideMenu sideMenuList={MYPAGE_CATEGORY} navMenuIdx={3} />
           <QuitBox>
-            <h3>회원 탈퇴</h3>
+            <h3>
+              <span>#</span> 회원 탈퇴
+            </h3>
             <QuitText>
               <span>
                 <IoCaretForwardOutline size="17px" color="#fff" text-align="center" />
@@ -112,7 +114,7 @@ export const Quit = () => {
 
 const QuitWrap = styled.div`
   display: flex;
-  margin: 120px 0 263px 0;
+  margin: 60px 0;
 `;
 
 const QuitBox = styled.div`
@@ -124,6 +126,10 @@ const QuitBox = styled.div`
     color: #212121;
     text-align: center;
     margin-bottom: 50px;
+
+    span {
+      color: ${(props) => props.theme.color.ORANGE};
+    }
   }
 
   hr {
