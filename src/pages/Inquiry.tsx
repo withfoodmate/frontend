@@ -84,7 +84,6 @@ const InquiryContainer = styled.div`
     width: 100%;
     display: flex;
     gap: 12px;
-    padding: 32px 24px;
   }
 `;
 
