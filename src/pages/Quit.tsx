@@ -129,12 +129,20 @@ const QuitBox = styled.div`
 
     span {
       color: ${(props) => props.theme.color.ORANGE};
+
+    @media only screen and (max-width: 768px) {
+      margin-bottom: 30px;
+      font-size: 20px;
     }
   }
 
   hr {
     width: 640px;
     border: 1px solid #f1f1f1;
+
+    @media only screen and (max-width: 768px) {
+      width: 410px;
+    }
   }
 
   p {
@@ -158,6 +166,14 @@ const QuitInBox = styled.div`
     font-weight: 600;
     line-height: 48px;
     margin-bottom: 0;
+
+    @media only screen and (max-width: 768px) {
+      width: 100px;
+      min-width: 100px;
+      max-width: 100px;
+      line-height: 32px;
+      font-size: 13px;
+    }
   }
 
   input {
@@ -167,6 +183,12 @@ const QuitInBox = styled.div`
     border-radius: 8px;
     border: 1px solid #ccc;
     padding-left: 15px;
+
+    @media only screen and (max-width: 768px) {
+      width: 220px;
+      max-width: 220px;
+      height: 32px;
+    }
   }
 
   div {

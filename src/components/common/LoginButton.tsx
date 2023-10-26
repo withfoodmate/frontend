@@ -57,6 +57,11 @@ const Button = styled.button<LoginButtonPropsType>`
   height: 54px;
   margin-top: 50px;
 
+  @media only screen and (max-width: 768px) {
+    width: 280x;
+    height: 48px;
+  }
+
   &:hover {
     color: ${(props) => props.$hoverFontColor};
     background-color: ${(props) => props.$hoverBackgdColor};

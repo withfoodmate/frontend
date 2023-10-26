@@ -246,9 +246,17 @@ const RegisterWrap = styled.div`
   flex-direction: column;
   align-items: center;
 
+  @media only screen and (max-width: 768px) {
+    margin: 30px auto 0;
+  }
+
   hr {
     width: 640px;
     border: 1px solid #f1f1f1;
+
+    @media only screen and (max-width: 768px) {
+      width: 410px;
+    }
   }
 `;
 const RegisterTitle = styled.h3`
@@ -259,6 +267,10 @@ const RegisterBox = styled.div`
   width: 640px;
   margin: 10px 0;
   padding: 0 20px;
+
+  @media only screen and (max-width: 768px) {
+    width: 410px;
+  }
 `;
 
 const RegisterInBox = styled.div`
@@ -275,6 +287,14 @@ const RegisterInBox = styled.div`
     font-weight: 600;
     line-height: 48px;
 
+    @media only screen and (max-width: 768px) {
+      width: 100px;
+      min-width: 100px;
+      max-width: 100px;
+      line-height: 32px;
+      font-size: 13px;
+    }
+
     span {
       font-size: 12px;
       font-weight: 400;
@@ -290,6 +310,12 @@ const RegisterInBox = styled.div`
     border-radius: 8px;
     border: 1px solid #ccc;
     padding-left: 15px;
+
+    @media only screen and (max-width: 768px) {
+      width: 220px;
+      max-width: 220px;
+      height: 32px;
+    }
   }
 `;
 
@@ -309,6 +335,11 @@ const RegisterButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    width: 280x;
+    height: 48px;
+  }
 `;
 
 const ConfirmButton = styled.button`
@@ -324,6 +355,12 @@ const ConfirmButton = styled.button`
   cursor: pointer;
   transition: 0.3s;
   margin-left: 8px;
+
+  @media only screen and (max-width: 768px) {
+    width: 80px;
+    height: 32px;
+    font-size: 13px;
+  }
 `;
 
 const InputBoxWrap = styled.div`
