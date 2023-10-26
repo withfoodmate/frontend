@@ -12,6 +12,7 @@ import { GeocodeType } from '../types/mapType';
 import { removeDot } from '../utils/removeDot';
 import DatePicker from 'react-datepicker';
 import { fetchCall } from '../api/fetchCall';
+import { AxiosError } from 'axios';
 // import { createGroup } from '../api/groupApi';
 
 export const CreateGroupPost = () => {
@@ -56,19 +57,26 @@ export const CreateGroupPost = () => {
   const handlePost = async () => {
     const timeString = time.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
     if (confirm('글을 작성할까요?')) {
-      await fetchCall('post', '/group', {
-        title: groupData.title,
-        name: groupData.name,
-        content,
-        food: groupData.food,
-        date: groupData.date,
-        time: timeString,
-        maximum: groupData.maximum,
-        storeName: groupData.storeName,
-        storeAddress: groupData.storeAddress,
-        latitude: groupData.latitude,
-        longitude: groupData.longitude,
-      });
+      try {
+        await fetchCall('post', '/group', {
+          title: groupData.title,
+          name: groupData.name,
+          content,
+          food: groupData.food,
+          date: groupData.date,
+          time: timeString,
+          maximum: groupData.maximum,
+          storeName: groupData.storeName,
+          storeAddress: groupData.storeAddress,
+          latitude: groupData.latitude,
+          longitude: groupData.longitude,
+        });
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        alert(axiosError.response?.data);
+        return;
+      }
+
       navigation('/findfoodmate');
     } else {
       return;

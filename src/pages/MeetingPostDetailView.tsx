@@ -20,6 +20,7 @@ import { LABELCOLOR } from '../constants/menu';
 import { isSignenIn } from '../store/login';
 import { profileModalIsOpened } from '../store/userInfo';
 import { UserInfoType } from '../types/userInfoType';
+import { AxiosError } from 'axios';
 
 export const MeetingPostDetailView = () => {
   const navigation = useNavigate();
@@ -46,40 +47,42 @@ export const MeetingPostDetailView = () => {
   const joinedMeeting = () => {
     alert('모임에 참여했어요!');
   };
-  const joinedChat = () => {
-    if (isSignedIn === false) {
-      alert('로그인 후 이용해 주세요');
-      return;
-    }
-    const auth = `Bearer ${sessionStorage.getItem('accessToken')}`;
-
-    const client = new Client({
-      brokerURL: `${import.meta.env.VITE_WS_URL}/chat`,
-      connectHeaders: { Authorization: auth },
-      onConnect: () => {
-        if (client === undefined) return;
-        client.subscribe(`/topic/chatroom/${postData.chatRoomId}`, () => {}, { Authorization: auth });
-        alert('채팅방 목록을 확인해 주세요!');
-      },
-      onStompError: (receipt: IFrame) => {
-        if (receipt.headers.message.includes('해당 요청에 권한이 없습니다.')) {
-          client.deactivate();
-          alert('모임 참여 여부 또는 참여 수락 여부를 확인해 주세요!');
-        }
-      },
-    });
-
-    client.activate();
-  };
-
-  const handleAttend = (event: string, question: string) => {
-    setIsOpenedAlertModal(true);
-    setAlertModalContent((prev) => ({ ...prev, question: question }));
-
+  
+  const handleAttend = async (event: string, question: string) => {
     if (event === '모임') {
-      setAlertModalContent((prev) => ({ ...prev, func: joinedMeeting }));
+      try {
+        await fetchCall('post', `group/${groupId}/enrollment`);
+        setIsOpenedAlertModal(true);
+        setAlertModalContent((prev) => ({ ...prev, question: question }));
+        setAlertModalContent((prev) => ({ ...prev, func: joinedMeeting }));
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        alert(axiosError.response?.data);
+      }
     } else if (event === '대화') {
-      setAlertModalContent((prev) => ({ ...prev, func: joinedChat }));
+      if (isSignedIn === false) {
+        alert('로그인 후 이용해 주세요');
+        return;
+      }
+      const auth = `Bearer ${sessionStorage.getItem('accessToken')}`;
+  
+      const client = new Client({
+        brokerURL: `${import.meta.env.VITE_WS_URL}/chat`,
+        connectHeaders: { Authorization: auth },
+        onConnect: () => {
+          if (client === undefined) return;
+          client.subscribe(`/topic/chatroom/${postData.chatRoomId}`, () => {}, { Authorization: auth });
+          alert('채팅방 목록을 확인해 주세요!');
+        },
+        onStompError: (receipt: IFrame) => {
+          if (receipt.headers.message.includes('해당 요청에 권한이 없습니다.')) {
+            client.deactivate();
+            alert('모임 참여 여부 또는 참여 수락 여부를 확인해 주세요!');
+          }
+        },
+      });
+  
+      client.activate();
     }
   };
 
@@ -168,19 +171,21 @@ export const MeetingPostDetailView = () => {
             <KakaoMap geoCode={geoCode} />
           </MapContainer>
 
-          <div className="basic-buttons-wrap">
-            <BasicButton $fontSize="12px" onClick={() => handleAttend('모임', '모임에 참여할까요?')}>
-              모임 참여
-            </BasicButton>
-            <BasicButton
-              $fontSize="12px"
-              onClick={() => handleAttend('대화', '대화에 참여할까요?')}
-              $backgdColor="#c0c0c0"
-              $hoverBackgdColor="#b6b6b6"
-            >
-              대화 참여
-            </BasicButton>
-          </div>
+          {signedInUserNickname !== postData.nickname && (
+            <div className="basic-buttons-wrap">
+              <BasicButton $fontSize="12px" onClick={() => handleAttend('모임', '모임에 참여할까요?')}>
+                모임 참여
+              </BasicButton>
+              <BasicButton
+                $fontSize="12px"
+                onClick={() => handleAttend('대화', '대화에 참여할까요?')}
+                $backgdColor="#c0c0c0"
+                $hoverBackgdColor="#b6b6b6"
+              >
+                대화 참여
+              </BasicButton>
+            </div>
+          )}
 
           <RightAlign>
             <div className="personnel">
