@@ -27,6 +27,12 @@ export const MeetingInfoCard = ({ meetingInfoData }: { meetingInfoData: MeetingI
       case 'REFUSE':
         setStatus('거절됨');
         break;
+      case 'GROUP_CANCEL':
+        setStatus('모임 취소');
+        break;
+      case 'GROUP_COMPLETE':
+        setStatus('모임 완료');
+        break;
     }
   }, [meetingInfoData.status]);
 
