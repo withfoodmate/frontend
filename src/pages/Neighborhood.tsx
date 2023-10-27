@@ -74,8 +74,15 @@ const NeighborhoodContainer = styled.div`
   height: 100vh;
   padding: 32px 24px;
   display: grid;
-  grid-template-columns: 450px 1fr;
-  gap: 12px;
+  grid-template-columns: 1fr;
+
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: 300px 1fr;
+  }
+
+  @media only screen and (min-width: 992px) {
+    grid-template-columns: 450px 1fr;
+  }
 `;
 
 const ListSection = styled.div`
@@ -102,4 +109,8 @@ const MapSection = styled.div`
   flex: 1;
   border-radius: 12px;
   height: 100%;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;

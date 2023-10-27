@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getRefreshTokenCookie = () => {
+export const getRefreshTokenCookie = () => {
   const cookies = document.cookie.split('; ');
   for (let i = 0; i < cookies.length; i++) {
     const parts = cookies[i].split('=');

@@ -70,7 +70,9 @@ export const Profile = () => {
         <ProfileWrap>
           <SideMenu sideMenuList={MYPAGE_CATEGORY} navMenuIdx={3} />
           <ProfileBox>
-            <h3>프로필 수정</h3>
+            <h3>
+              <span>#</span> 프로필 수정
+            </h3>
             <UserProfileImage currentImage={myInfo.image} />
             <hr></hr>
             <ProfilePadding>
@@ -88,7 +90,7 @@ export const Profile = () => {
             </ProfilePadding>
             <hr></hr>
             <LoginButton $fontSize="16px" onClick={handleModify}>
-              프로필 수정
+              수정하기
             </LoginButton>
           </ProfileBox>
         </ProfileWrap>
@@ -99,7 +101,7 @@ export const Profile = () => {
 
 const ProfileWrap = styled.div`
   display: flex;
-  margin: 120px 0;
+  margin: 60px 0;
 `;
 
 const ProfileBox = styled.div`
@@ -116,9 +118,13 @@ const ProfileBox = styled.div`
     text-align: center;
     margin-bottom: 50px;
 
+
+    span {
+      color: ${(props) => props.theme.color.ORANGE};
     @media only screen and (max-width: 768px) {
       margin-bottom: 30px;
       font-size: 20px;
+
     }
   }
 
